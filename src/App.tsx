@@ -50,9 +50,10 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
     );
   }
 
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
+  // Authentification temporairement désactivée
+  // if (!user) {
+  //   return <Navigate to="/login" replace />;
+  // }
 
   return <>{children}</>;
 }
@@ -65,10 +66,10 @@ function App() {
         v7_relativeSplatPath: true
       }}>
         <Routes>
-          {/* Public Routes */}
-          <Route path="/login" element={<Login />} />
+          {/* Login route désactivée temporairement */}
+          {/* <Route path="/login" element={<Login />} /> */}
 
-          {/* Protected Routes */}
+          {/* Routes (sans protection temporairement) */}
           <Route
             path="/"
             element={
