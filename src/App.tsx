@@ -1,18 +1,16 @@
-import React from 'react';
-// import { useEffect } from 'react'; // Temporairement désactivé
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-// import { Navigate } from 'react-router-dom'; // Temporairement désactivé
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'react-hot-toast';
-// import { useAuthStore } from './store/auth'; // Temporairement désactivé
+import { useAuthStore } from './store/auth';
 import { useRealtimeNotifications } from './hooks/useRealtimeNotifications';
 
 // Layout
 import Layout from './components/layout/Layout';
 
 // Pages
-// import Login from './pages/Login'; // Temporairement désactivé
+import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import BookingsV2 from './pages/BookingsV2';
 import BookingDetail from './pages/BookingDetail';
@@ -37,10 +35,9 @@ const queryClient = new QueryClient({
 
 // Protected Route Component
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  // const { user, isLoading, checkAuth } = useAuthStore(); // Temporairement désactivé
-  useRealtimeNotifications(); // Activer les notifications temps réel
+  const { user, isLoading, checkAuth } = useAuthStore();
+  useRealtimeNotifications(); // Activer les notifications temps réel pour les utilisateurs connectés
 
-  /* Authentification temporairement désactivée
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
@@ -56,7 +53,6 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
   if (!user) {
     return <Navigate to="/login" replace />;
   }
-  */
 
   return <>{children}</>;
 }
@@ -69,10 +65,10 @@ function App() {
         v7_relativeSplatPath: true
       }}>
         <Routes>
-          {/* Login route désactivée temporairement */}
-          {/* <Route path="/login" element={<Login />} /> */}
+          {/* Public Routes */}
+          <Route path="/login" element={<Login />} />
 
-          {/* Routes (sans protection temporairement) */}
+          {/* Protected Routes */}
           <Route
             path="/"
             element={
